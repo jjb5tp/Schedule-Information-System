@@ -80,3 +80,7 @@ export const LoginPageStyle = StyleSheet.create({
         borderRadius: 150
       }
 })
+
+export const CalendarYearViewStyle = StyleSheet.create({
+    
+})

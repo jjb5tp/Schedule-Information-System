@@ -18,7 +18,7 @@ import Footer from '../components/Footer';
 
 const testIDs = require('./testIDs');
 
-class CalendarYearView extends Component {
+export default class AgendaScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -124,5 +124,3 @@ const styles = StyleSheet.create({
     paddingTop: 30
   }
 });
-
-export default CalendarYearView;
