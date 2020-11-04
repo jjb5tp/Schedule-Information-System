@@ -7,7 +7,9 @@ const Stack = createStackNavigator();
 
 //pages
 import CalendarYearView from './pages/CalendarYearView';
+import LoginPage from './pages/LoginPage';
 
+//import firebase from './firebase';
 
 export default class App extends React.Component{
   constructor(){
@@ -23,7 +25,8 @@ export default class App extends React.Component{
         <Stack.Navigator screenOptions = {{
           headerShown: false
         }}>
-          <Stack.Screen name = "CalendarYearView" component = {CalendarYearView}/>
+        <Stack.Screen name = "CalendarYearView" component = {CalendarYearView}/>
+        <Stack.Screen name = "LoginPage" component = {LoginPage}/>
           
         </Stack.Navigator>
       </NavigationContainer>
