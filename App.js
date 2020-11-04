@@ -15,20 +15,17 @@ import ExpandableCalendarScreen from './pages/ExpandableCalendarScreen';
 import TimelineCalendarScreen from './pages/TimelineCalendarScreen';
 import LoginPage from './pages/LoginPage';
 
-import ApiKeys from './components/ApiKeys';
-import * as firebase from 'firebase';
+
 
 export default class App extends React.Component{
   constructor(props){
     super(props)
     this.state = {
       isLoadingComplete: false,
+      loggedIn: false,
     }
 
-    // Initalize firebase...
-    if (!firebase.apps.length){ // checks if it has alread been initialized
-      firebase.initializeApp(ApiKeys.firebaseConfig);
-    }
+    
   }
   
   render(){
@@ -37,6 +34,7 @@ export default class App extends React.Component{
         <Stack.Navigator screenOptions = {{
           headerShown: false
         }}>
+        <Stack.Screen name = "LoginPage" component = {LoginPage}/>
         <Stack.Screen name = "AgendaScreen" component = {AgendaScreen}/>
           
         </Stack.Navigator>

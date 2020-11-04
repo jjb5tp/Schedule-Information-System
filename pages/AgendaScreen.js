@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 //react-native components
 import {StyleSheet, ImageBackground, View } from 'react-native';
 import {Alert, Text, TouchableOpacity} from 'react-native';
-import {Button, Container, Content } from 'native-base';
+import {Card, Container, Content, CardItem, Icon, Right } from 'native-base';
 
 //online components
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
@@ -11,10 +11,11 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 //our components
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import firebase from '../components/firebase';
 
 // styles
-//import {PageStyle} from '../styles/styles';
-//const styles = StyleSheet.flatten(PageStyle);
+import {AgendaScreenStyle} from '../styles/styles';
+const styles = StyleSheet.flatten(AgendaScreenStyle);
 
 const testIDs = require('./testIDs');
 
@@ -29,29 +30,32 @@ export default class AgendaScreen extends Component {
 
   render() {
     return (
-      <Agenda
-        testID={testIDs.agenda.CONTAINER}
-        items={this.state.items}
-        loadItemsForMonth={this.loadItems.bind(this)}
-        selected={'2017-05-16'}
-        renderItem={this.renderItem.bind(this)}
-        renderEmptyDate={this.renderEmptyDate.bind(this)}
-        rowHasChanged={this.rowHasChanged.bind(this)}
-        // markingType={'period'}
-        // markedDates={{
-        //    '2017-05-08': {textColor: '#43515c'},
-        //    '2017-05-09': {textColor: '#43515c'},
-        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-        //    '2017-05-21': {startingDay: true, color: 'blue'},
-        //    '2017-05-22': {endingDay: true, color: 'gray'},
-        //    '2017-05-24': {startingDay: true, color: 'gray'},
-        //    '2017-05-25': {color: 'gray'},
-        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-        // monthFormat={'yyyy'}
-        // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-        //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
-        // hideExtraDays={false}
-      />
+      <Container>
+        <Header title = "sociallyDistancedDispenser" navigation = {this.props} backbutton={true}/>
+        <Agenda
+          testID={testIDs.agenda.CONTAINER}
+          items={this.state.items}
+          loadItemsForMonth={this.loadItems.bind(this)}
+          selected={'2020-11-04'}
+          renderItem={this.renderItem.bind(this)}
+          renderEmptyDate={this.renderEmptyDate.bind(this)}
+          rowHasChanged={this.rowHasChanged.bind(this)}
+          //markingType={'period'}
+          // markedDates={{
+          //    '2020-11-08': {textColor: '#43515c'},
+          //    '2020-11-09': {textColor: '#43515c'},
+          //    '2020-11-14': {startingDay: true, endingDay: true, color: 'blue'},
+          //    '2020-11-21': {startingDay: true, color: 'blue'},
+          //    '2020-11-22': {endingDay: true, color: 'gray'},
+          //    '2020-11-24': {startingDay: true, color: 'gray'},
+          //    '2020-11-25': {color: 'gray'},
+          //    '2020-11-26': {endingDay: true, color: 'gray'}}}
+          // monthFormat={'yyyy'}
+          // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
+          //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
+          // hideExtraDays={false}
+        />
+      </Container>
     );
   }
 
@@ -77,6 +81,8 @@ export default class AgendaScreen extends Component {
         items: newItems
       });
     }, 1000);
+
+    
   }
 
   renderItem(item) {
@@ -109,18 +115,3 @@ export default class AgendaScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  item: {
-    backgroundColor: 'white',
-    flex: 1,
-    borderRadius: 5,
-    padding: 10,
-    marginRight: 10,
-    marginTop: 17
-  },
-  emptyDate: {
-    height: 15,
-    flex:1,
-    paddingTop: 30
-  }
-});

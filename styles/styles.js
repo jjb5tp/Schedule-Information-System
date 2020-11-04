@@ -61,26 +61,43 @@ export const PageStyle = StyleSheet.create({
     },
 })
 
-export const LoginPageStyle = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center"
-      },
-      header: {
-        fontSize: 25
-      },
-      image: {
-        marginTop: 15,
-        width: 150,
-        height: 150,
-        borderColor: "rgba(0,0,0,0.2)",
-        borderWidth: 3,
-        borderRadius: 150
-      }
+export const CalendarYearViewStyle = StyleSheet.create({
+
 })
 
-export const CalendarYearViewStyle = StyleSheet.create({
-    
+export const AgendaScreenStyle = StyleSheet.create({
+    item: {
+        backgroundColor: 'white',
+        flex: 1,
+        borderRadius: 5,
+        padding: 10,
+        marginRight: 10,
+        marginTop: 17
+    },
+    emptyDate: {
+        height: 15,
+        flex:1,
+        paddingTop: 30
+    }
 })
+
+export const LoginPageStyle = StyleSheet.create({
+    container: {
+       paddingTop: 23
+    },
+    input: {
+       margin: 15,
+       height: 40,
+       borderColor: '#7a42f4',
+       borderWidth: 1
+    },
+    submitButton: {
+       backgroundColor: '#7a42f4',
+       padding: 10,
+       margin: 15,
+       height: 40,
+    },
+    submitButtonText:{
+       color: 'white'
+    }
+ })
