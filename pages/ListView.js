@@ -108,7 +108,7 @@ const ListOfItems = (props) => {
   );
   return (
     <View>
-      <Header title = "header" navigation = {props} backbutton = {false}/>
+      <Header title = "header" navigation = {props} backbutton = {true} addbutton = {true}/>
       <FlatList
         data={DATA}
         renderItem={renderItem}

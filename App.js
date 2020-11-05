@@ -38,6 +38,8 @@ export default class App extends React.Component{
 
 
           <Stack.Screen name = "LoginPage" component = {LoginPage}/>
+          <Stack.Screen name = "CalendarList" component = {CalendarList}/>
+          <Stack.Screen name = "CalendarScreen" component = {CalendarScreen}/>
           <Stack.Screen name = "AgendaScreen" component = {AgendaScreen}/>
           <Stack.Screen name = "AddCategory" component = {AddCategory}/>
           <Stack.Screen name = "ListView" component = {ListOfItems}/>

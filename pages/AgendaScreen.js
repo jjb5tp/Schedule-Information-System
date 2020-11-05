@@ -32,28 +32,6 @@ export default class AgendaScreen extends Component {
   }
 
 
-  // for (let i = -15; i < 85; i++) {
-  //   const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-  //   const strTime = this.timeToString(time);
-  //   if (!this.state.items[strTime]) {
-  //     this.state.items[strTime] = [];
-  //     const numItems = Math.floor(Math.random() * 3 + 1);
-  //     for (let j = 0; j < numItems; j++) {
-  //       this.state.items[strTime].push({
-  //         name: 'Item for ' + strTime + ' #' + j,
-  //         height: Math.max(50, Math.floor(Math.random() * 150))
-  //       });
-  //     }
-  //   }
-  // }
-
-  // const newItems = {};
-  // Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-  // this.setState({
-  //   items: newItems
-  // });
-
-
   componentDidMount() {
     var newItems = {};
     database.collection(fire.auth().currentUser.email).get().then(function(querySnapshot) {
@@ -71,8 +49,6 @@ export default class AgendaScreen extends Component {
       console.error(error);
     })
   }
-
-  
 
 
   render() {
@@ -175,7 +151,7 @@ export default class AgendaScreen extends Component {
 
   loadItems(day) {
     setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
+      for (let i = -1; i < 5; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strTime = this.timeToString(time);
         if (!this.state.items[strTime]) {

@@ -44,7 +44,7 @@ class LoginPage extends Component {
                 alert(error);
             }).then( (error)=> {
                 if (error)
-                    navigation.navigate('AgendaScreen') 
+                    navigation.navigate('CalendarList') 
             });
         }
     }
@@ -65,7 +65,7 @@ class LoginPage extends Component {
             }).then( (error)=> {
                 if (error){
                     database.collection(email).doc("first").set({})
-                    navigation.navigate('AgendaScreen')
+                    navigation.navigate('CalendarList')
                 }
             });
         }
@@ -127,8 +127,14 @@ class LoginPage extends Component {
 
                     <TouchableOpacity
                     style = {styles.submitButton}
-                    onPress = {()=>navigation.navigate('AgendaScreen')}>
-                        <Text style = {styles.submitButtonText}> GG go next </Text>
+                    onPress = {()=>navigation.navigate('CalendarList')}>
+                        <Text style = {styles.submitButtonText}> go to calendar (you better be logged in) </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                    style = {styles.submitButton}
+                    onPress = {()=>navigation.navigate('ListView')}>
+                        <Text style = {styles.submitButtonText}> go to list (you better be logged in) </Text>
                     </TouchableOpacity>
 
                 </View>
