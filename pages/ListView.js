@@ -14,7 +14,7 @@ const DATA = [
         {
             id: "id1",
             type: "class",
-            name: "Class",
+            name: "Class1",
             day: "Monday",
             time: "2:00 - 3:15",
             location: "online",
@@ -24,7 +24,7 @@ const DATA = [
             id: "id2",
             type: "assignment",
             name: "HW1",
-            dueDate: "Monday", 
+            dueDate: "Monday, December 3", 
             dueTime: "2:00 - 3:15",
             recommendation: "1/4 of assignment per week",
             repeatUntil: "N/A",
@@ -50,7 +50,9 @@ const DATA = [
             id: "id2",
             type: "assignment",
             name: "HW1",
-            dueDate: "Monday, 2:00 - 3:15",
+            dueDate: "Monday",
+            dueTime: "2:00 - 3:15",
+            recommendation: "1/4 of assignment per week",
             repeatUntil: "N/A",
         }
     ]
@@ -73,8 +75,27 @@ const DATA = [
         {
             id: "id2",
             type: "assignment",
-            name: "HW1",
-            dueDate: "Monday, 2:00 - 3:15",
+            name: "HW2",
+            dueDate: "Monday",
+            dueTime: "2:00 - 3:15",
+            repeatUntil: "N/A",
+        },
+        {
+            id: "id3",
+            type: "assignment",
+            name: "HW3",
+            dueDate: "Monday",
+            dueTime: "2:00 - 3:15",
+            recommendation: "1/4 of assignment per week",
+            repeatUntil: "N/A",
+        },
+        {
+            id: "id4",
+            type: "assignment",
+            name: "HW4",
+            dueDate: "Monday",
+            dueTime: "2:00 - 3:15",
+            recommendation: "1/4 of assignment per week",
             repeatUntil: "N/A",
         }
     ]
@@ -85,7 +106,6 @@ const ListOfItems = (props) => {
   const renderItem = ({ item }) => (
     <ListItem item={item} />
   );
-
   return (
     <View>
       <Header title = "header" navigation = {props} backbutton = {false}/>
