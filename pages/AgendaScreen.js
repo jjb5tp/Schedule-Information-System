@@ -26,7 +26,6 @@ export default class AgendaScreen extends Component {
     this.state = {
       items: {},
       categories: {},
-      penis: "poop",
     };
     
   }

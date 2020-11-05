@@ -31,7 +31,7 @@ const Header = (props) => {
                 )
             }
             {addbutton && (
-                <Button title="Go back" onPress={() => navigation.goBack() } style = {styles.add_button}>
+                <Button title="Go back" onPress={() => navigation.navigate('AddCategory') } style = {styles.add_button}>
                     <Text> Add </Text>
                 </Button>)
             }

@@ -48,24 +48,9 @@ class AddCategory extends Component {
         const { navigation } = this.props;
         return (
             <Container>
-                <Header title = "Login" navigation = {this.props} cancelbutton = {true} submitbutton = {true} categoryinfo = {this.state}/>
+                <Header title = "Add New Category" navigation = {this.props} cancelbutton = {true} submitbutton = {true} categoryinfo = {this.state}/>
                 <Content contentContainerStyle={styles.container} scrollEnabled='false'>
                 <View style = {styles.container}>
-                    <TouchableOpacity
-                    style = {styles.submitButton}
-                    onPress = {
-                        () => this.cancel()
-                    }>
-                        <Text style = {styles.submitButtonText}> Cancel </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                    style = {styles.submitButton}
-                    onPress = {
-                        () => this.submit()
-                    }>
-                        <Text style = {styles.submitButtonText}> Submit </Text>
-                    </TouchableOpacity>
 
                     <TextInput style = {styles.input}
                     underlineColorAndroid = "transparent"
