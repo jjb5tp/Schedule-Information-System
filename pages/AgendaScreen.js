@@ -31,7 +31,7 @@ export default class AgendaScreen extends Component {
   render() {
     return (
       <Container>
-        <Header title = "sociallyDistancedDispenser" navigation = {this.props} backbutton={true}/>
+        <Header title = "Calendar View" navigation = {this.props} backbutton={true} addbutton={true}/>
         <Agenda
           testID={testIDs.agenda.CONTAINER}
           items={this.state.items}

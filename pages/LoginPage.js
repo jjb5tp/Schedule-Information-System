@@ -12,7 +12,7 @@ import fire, {database} from '../components/firebase';
 import {LoginPageStyle} from '../styles/styles';
 const styles = StyleSheet.flatten(LoginPageStyle);
 
-class LandingPage extends Component {
+class LoginPage extends Component {
 
     constructor(props) {
         super(props)
@@ -21,6 +21,7 @@ class LandingPage extends Component {
             password: "",
         }
     }
+    
 
     handleEmail = (text) => {
         this.setState({ email: text })
@@ -83,6 +84,7 @@ class LandingPage extends Component {
     }
 
     render() {
+        const { navigation } = this.props;
         return (
             <Container>
                 <Header title = "Login" navigation = {this.props} backbutton = {false}/>
@@ -126,11 +128,17 @@ class LandingPage extends Component {
                         <Text style = {styles.submitButtonText}> New user? Register here </Text>
                     </TouchableOpacity>
 
+                    <TouchableOpacity
+                    style = {styles.submitButton}
+                    onPress = {()=>navigation.navigate('AgendaScreen')}>
+                        <Text style = {styles.submitButtonText}> GG go next </Text>
+                    </TouchableOpacity>
+
                 </View>
                 </Content>
             </Container>
         )
     }
 }
-export default LandingPage
+export default LoginPage
 

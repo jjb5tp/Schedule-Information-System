@@ -23,19 +23,46 @@ export const HeaderStyle = StyleSheet.create({
         alignSelf: 'flex-start', // the button will be on the left side
         justifyContent: 'flex-start', // the text in the button will be on the left side
         alignItems: 'flex-end', // the text in the button will be on the bottom side
-        backgroundColor: 'transparent',
-        backgroundColor: 'transparent',
+        backgroundColor: 'purple',
+        //backgroundColor: 'transparent',
         position: 'absolute',
-        height: '100%',
-        width: '100%',
+        height: '40%',
+        width: '25%',
+    },
+    add_button: {
+        alignSelf: 'flex-end', // the button will be on the left side
+        justifyContent: 'flex-end', // the text in the button will be on the left side
+        alignItems: 'flex-end', // the text in the button will be on the bottom side
+        backgroundColor: 'purple',
+        //backgroundColor: 'transparent',
+        position: 'absolute',
+        height: '40%',
+        width: '25%',
+    },
+    cancel_button: {
+        alignSelf: 'flex-start', // the button will be on the left side
+        justifyContent: 'flex-start', // the text in the button will be on the left side
+        alignItems: 'flex-end', // the text in the button will be on the bottom side
+        backgroundColor: 'purple',
+        //backgroundColor: 'transparent',
+        position: 'absolute',
+        height: '40%',
+        width: '25%',
+    },
+    submit_button: {
+        alignSelf: 'flex-end', // the button will be on the left side
+        justifyContent: 'flex-end', // the text in the button will be on the left side
+        alignItems: 'flex-end', // the text in the button will be on the bottom side
+        backgroundColor: 'purple',
+        //backgroundColor: 'transparent',
+        position: 'absolute',
+        height: '40%',
+        width: '25%',
     },
     back_button_text: {
         color: '#F3F3F3',
         fontSize: 18,
         fontWeight: '500',
-    },
-    add_button: {
-
     },
     days_of_the_week: {
 

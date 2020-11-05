@@ -14,6 +14,7 @@ import CalendarYearViewBackup from './pages/CalendarYearViewBackup';
 import ExpandableCalendarScreen from './pages/ExpandableCalendarScreen';
 import TimelineCalendarScreen from './pages/TimelineCalendarScreen';
 import LoginPage from './pages/LoginPage';
+import AddCategory from './pages/AddCategory';
 
 
 
@@ -36,6 +37,7 @@ export default class App extends React.Component{
         }}>
         <Stack.Screen name = "LoginPage" component = {LoginPage}/>
         <Stack.Screen name = "AgendaScreen" component = {AgendaScreen}/>
+        <Stack.Screen name = "AddCategory" component = {AddCategory}/>
           
         </Stack.Navigator>
       </NavigationContainer>
