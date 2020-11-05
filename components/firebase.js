@@ -18,9 +18,10 @@ const firebaseConfig= {
   measurementId: "G-QCV21ETPED"
 }
 
-
 // Initalize firebase...
 if (!firebase.apps.length){ // checks if it has already been initialized
   firebase.initializeApp(firebaseConfig);
 }
-export default firebase;
+var database = firebase.firestore();
+export default firebase
+export {database};

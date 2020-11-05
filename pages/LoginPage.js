@@ -6,7 +6,7 @@ import {Button, Text, Container, Content } from 'native-base';
 
 //our components
 import Header from '../components/Header';
-import firebase from '../components/firebase';
+import fire, {database} from '../components/firebase';
 
 // styles
 import {LoginPageStyle} from '../styles/styles';
@@ -30,47 +30,52 @@ class LandingPage extends Component {
     }
     
     login = (email, password) => {
-        if (firebase.auth().currentUser){
+        if (fire.auth().currentUser){
             alert('already signed in');
         }
         else{
             const { navigation } = this.props;
-            firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            fire.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 // ...
-                alert(errorMessage);
-            }).then( ()=> {
-                if (firebase.auth().currentUser)
+                alert(error);
+            }).then( (error)=> {
+                if (error)
                     navigation.navigate('AgendaScreen') 
             });
         }
     }
     signUp = (email, password) => {
-        if (firebase.auth().currentUser){
+        if (fire.auth().currentUser){
             alert('already signed in');
         }
         else{
             const { navigation } = this.props;
+            
             //alert('email: ' + email + ' password: ' + password)
-            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+            fire.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 // ...
                 alert(errorMessage);
-            }).then( ()=> {
-                if (firebase.auth().currentUser)
-                    navigation.navigate('AgendaScreen') 
+            }).then( (error)=> {
+                if (error){
+                    database.collection("users").doc(email).set({
+                        email: email,
+                        password: password
+                    })
+                    navigation.navigate('AgendaScreen')
+                }
             });
         }
     }
 
     signOut = () => {
-        if (firebase.auth().currentUser){
-            console.log(firebase.auth().currentUser);
-            firebase.auth().signOut();
+        if (fire.auth().currentUser){
+            fire.auth().signOut();
         }
         else{
             alert('not signed in');
