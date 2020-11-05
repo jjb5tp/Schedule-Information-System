@@ -64,10 +64,7 @@ class LoginPage extends Component {
                 alert(errorMessage);
             }).then( (error)=> {
                 if (error){
-                    database.collection("users").doc(email).set({
-                        email: email,
-                        password: password
-                    })
+                    database.collection(email).doc("first").set({})
                     navigation.navigate('AgendaScreen')
                 }
             });

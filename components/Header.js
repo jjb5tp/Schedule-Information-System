@@ -45,17 +45,24 @@ const Header = (props) => {
             {submitbutton && (
                 <Button title="Go back" onPress={() => {
                     if (fire.auth().currentUser){
-                        if (categoryinfo.description){
-                            database.collection("users").doc(fire.auth().currentUser.email).collection("categories").doc(categoryinfo.title).update({
-                                description: categoryinfo.description,
-                            })
+                        if (database.collection(fire.auth().currentUser.email) == null){
+                            if (categoryinfo.description){
+                                database.collection(fire.auth().currentUser.email).doc(categoryinfo.title).update({
+                                    description: categoryinfo.description,
+                                })
+                            }
+                            if (categoryinfo.color){
+                                database.collection(fire.auth().currentUser.email).doc(categoryinfo.title).update({
+                                    color: categoryinfo.color,
+                                })
+                            }
                         }
-                        if (categoryinfo.color){
-                            database.collection("users").doc(fire.auth().currentUser.email).collection("categories").doc(categoryinfo.title).update({
+                        else {
+                            database.collection(fire.auth().currentUser.email).doc(categoryinfo.title).set({
+                                description: categoryinfo.description,
                                 color: categoryinfo.color,
                             })
                         }
-
                         
                         navigation.navigate('AgendaScreen')
                     }
