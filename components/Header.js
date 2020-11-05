@@ -64,7 +64,7 @@ const Header = (props) => {
                             })
                         }
                         
-                        navigation.navigate('AgendaScreen')
+                        navigation.goBack()
                     }
 
                 } } style = {styles.submit_button}>

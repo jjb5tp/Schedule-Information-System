@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
+// import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+// import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
@@ -15,7 +15,7 @@ import ExpandableCalendarScreen from './pages/ExpandableCalendarScreen';
 import TimelineCalendarScreen from './pages/TimelineCalendarScreen';
 import LoginPage from './pages/LoginPage';
 import AddCategory from './pages/AddCategory';
-
+import ListOfItems from './pages/ListView';
 
 
 export default class App extends React.Component{
@@ -35,9 +35,14 @@ export default class App extends React.Component{
         <Stack.Navigator screenOptions = {{
           headerShown: false
         }}>
-        <Stack.Screen name = "LoginPage" component = {LoginPage}/>
-        <Stack.Screen name = "AgendaScreen" component = {AgendaScreen}/>
-        <Stack.Screen name = "AddCategory" component = {AddCategory}/>
+
+
+          <Stack.Screen name = "LoginPage" component = {LoginPage}/>
+          <Stack.Screen name = "CalendarList" component = {CalendarList}/>
+          <Stack.Screen name = "CalendarScreen" component = {CalendarScreen}/>
+          <Stack.Screen name = "AgendaScreen" component = {AgendaScreen}/>
+          <Stack.Screen name = "AddCategory" component = {AddCategory}/>
+          <Stack.Screen name = "ListView" component = {ListOfItems}/>
           
         </Stack.Navigator>
       </NavigationContainer>
