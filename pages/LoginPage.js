@@ -127,14 +127,28 @@ class LoginPage extends Component {
 
                     <TouchableOpacity
                     style = {styles.submitButton}
-                    onPress = {()=>navigation.navigate('CalendarList')}>
-                        <Text style = {styles.submitButtonText}> go to calendar (you better be logged in) </Text>
+                    onPress = {()=> {
+                        if (fire.auth().currentUser){
+                            navigation.navigate('CalendarList')
+                        }
+                        else{
+                            alert('need to be signed in');
+                        }
+                    }}>
+                        <Text style = {styles.submitButtonText}> go to calendar view </Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                     style = {styles.submitButton}
-                    onPress = {()=>navigation.navigate('ListView')}>
-                        <Text style = {styles.submitButtonText}> go to list (you better be logged in) </Text>
+                    onPress = {()=>{
+                        if (fire.auth().currentUser){
+                            navigation.navigate('ListView')
+                        }
+                        else{
+                            alert('need to be signed in');
+                        }
+                    }}>
+                        <Text style = {styles.submitButtonText}> go to list view </Text>
                     </TouchableOpacity>
 
                 </View>

@@ -7,6 +7,8 @@ const styles = StyleSheet.flatten(HeaderStyle);
 
 import fire, {database} from '../components/firebase';
 
+
+
 const Header = (props) => {
     
     const { navigation } = props.navigation;
@@ -17,6 +19,12 @@ const Header = (props) => {
     const cancelbutton = props.cancelbutton;
     const submitbutton = props.submitbutton;
     const categoryinfo = props.categoryinfo;
+
+    const isListView = props.isListView;
+
+    const useMeDaddy = props.useMeDaddy;
+    
+
     return(
         
         <View style={styles.container}>
@@ -31,7 +39,10 @@ const Header = (props) => {
                 )
             }
             {addbutton && (
-                <Button title="Go back" onPress={() => navigation.navigate('AddCategory') } style = {styles.add_button}>
+                <Button title="Go back" onPress={() => {{navigation.navigate('AddCategory', {
+                    onGoBack: () => useMeDaddy,
+                })}}
+                } style = {styles.add_button}>
                     <Text> Add </Text>
                 </Button>)
             }
@@ -43,7 +54,7 @@ const Header = (props) => {
                 )
             }
             {submitbutton && (
-                <Button title="Go back" onPress={() => {
+                <Button title="Go back" onPress={() => {{
                     if (fire.auth().currentUser){
                         if (database.collection(fire.auth().currentUser.email) == null){
                             if (categoryinfo.description){
@@ -63,11 +74,17 @@ const Header = (props) => {
                                 color: categoryinfo.color,
                             })
                         }
-                        
+                        // {!isListView && 
+                        //     navigation.navigate('ListView', {})
+                        // }
+                        // {isListView && 
+                        //     navigation.navigate('CalendarList', {})
+                        // }
                         navigation.goBack()
                     }
 
-                } } style = {styles.submit_button}>
+                }}
+                } style = {styles.submit_button}>
                     <Text> Submit </Text>
                 </Button>)
             }

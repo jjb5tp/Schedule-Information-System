@@ -1,8 +1,16 @@
-import React from 'react';
-import { View, FlatList, Text } from 'react-native';
+// react imports
+import React, {Component} from 'react';
+import { StyleSheet, View, FlatList, Text, TouchableOpacity } from 'react-native';
+import { Card, Container, Content, CardItem, Icon, Right } from 'native-base';
 
+// components
 import Header from '../components/Header';
 import ListItem from '../components/ListItem';
+import fire, {database} from '../components/firebase';
+
+// styles
+import {ListViewStyle} from '../styles/styles';
+const styles = StyleSheet.flatten(ListViewStyle);
 
 const DATA = [
   {
@@ -102,21 +110,90 @@ const DATA = [
   },
 ];
 
-const ListOfItems = (props) => {
-  const renderItem = ({ item }) => (
+class ListView extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      categories: [],
+      ready: false,
+    }
+  }
+
+  componentDidMount() {
+    this.getInfo()
+  }
+
+  getInfo = () => {
+    const {navigation} = this.props;
+    this.focusListener = navigation.addListener("didFocus", () => {
+      this.setState({
+        ready: false,
+      })
+    });
+    const newItems = []
+    database.collection(fire.auth().currentUser.email).get().then((querySnapshot) => {
+      querySnapshot.forEach(function(documents) {
+        //console.log(documents);
+        var id = documents.id;
+        var data = documents.data()
+        newItems.push({id, data})
+      });
+    }).then(() => {
+      this.setState({
+        categories: newItems,
+        ready: true
+      })
+    }).catch((error) => {
+      console.error(error);
+    })
+    
+  }
+
+
+  renderItem = ({ item }) => (
     <ListItem item={item} />
   );
-  return (
-    <View>
-      <Header title = "List View" navigation = {props} backbutton = {true} addbutton = {true}/>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
-    </View>
-  );
+
+  
+
+  render() {
+    if (!this.state.ready) return null;
+    else{
+      //console.log(this.state.categories)
+      return (
+        <View>
+          <Header title = "List View" navigation = {this.props} backbutton = {true} addbutton = {true} isListView = {true} useMeDaddy = {this.getInfo}/>
+          {/* <FlatList
+            data={DATA}
+            renderItem={this.renderItem}
+            keyExtractor={item => item.id}
+          /> */}
+          {/*console.log(this.state.categories)*/}
+          <TouchableOpacity
+          style = {styles.submitButton}
+          onPress = {
+              () => this.getInfo()
+          }>
+              <Text style = {styles.submitButtonText}> Refresh page </Text>
+          </TouchableOpacity>
+          
+          {this.state.categories.map((info) =>{
+            return(
+              <Card key = {info.id}>
+                <CardItem>
+                    <Text>
+                        {info.id}
+                    </Text>
+                </CardItem>
+              </Card>
+            )
+          })}
+        
+        </View>
+      );
+    }
+  }
 }
 
-
-export default ListOfItems;
+export default ListView;
