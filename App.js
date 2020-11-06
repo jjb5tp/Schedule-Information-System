@@ -25,8 +25,6 @@ export default class App extends React.Component{
       isLoadingComplete: false,
       loggedIn: false,
     }
-
-    
   }
   
   render(){
@@ -35,7 +33,6 @@ export default class App extends React.Component{
         <Stack.Navigator screenOptions = {{
           headerShown: false
         }}>
-
 
           <Stack.Screen name = "LoginPage" component = {LoginPage}/>
           <Stack.Screen name = "CalendarList" component = {CalendarList}/>

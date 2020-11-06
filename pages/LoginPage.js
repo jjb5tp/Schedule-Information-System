@@ -87,6 +87,12 @@ class LoginPage extends Component {
                 <Header title = "Login" navigation = {this.props} backbutton = {false}/>
                 <Content contentContainerStyle={styles.container} scrollEnabled='false'>
                 <View style = {styles.container}>
+                    <Text>
+                        {"\t"}If you are already logged in, you may sign out or go to one of the views.
+                    </Text>
+                    <Text>
+                        {"\t"}Otherwise, input an email and password, and either create a new account with it or log into an existing one.
+                    </Text>
                     <TextInput style = {styles.input}
                     underlineColorAndroid = "transparent"
                     placeholder = "Email"
@@ -127,14 +133,28 @@ class LoginPage extends Component {
 
                     <TouchableOpacity
                     style = {styles.submitButton}
-                    onPress = {()=>navigation.navigate('CalendarList')}>
-                        <Text style = {styles.submitButtonText}> go to calendar (you better be logged in) </Text>
+                    onPress = {()=> {
+                        if (fire.auth().currentUser){
+                            navigation.navigate('CalendarList')
+                        }
+                        else{
+                            alert('need to be signed in');
+                        }
+                    }}>
+                        <Text style = {styles.submitButtonText}> go to calendar view </Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                     style = {styles.submitButton}
-                    onPress = {()=>navigation.navigate('ListView')}>
-                        <Text style = {styles.submitButtonText}> go to list (you better be logged in) </Text>
+                    onPress = {()=>{
+                        if (fire.auth().currentUser){
+                            navigation.navigate('ListView')
+                        }
+                        else{
+                            alert('need to be signed in');
+                        }
+                    }}>
+                        <Text style = {styles.submitButtonText}> go to list view </Text>
                     </TouchableOpacity>
 
                 </View>
