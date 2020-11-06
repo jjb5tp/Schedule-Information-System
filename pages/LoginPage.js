@@ -87,6 +87,12 @@ class LoginPage extends Component {
                 <Header title = "Login" navigation = {this.props} backbutton = {false}/>
                 <Content contentContainerStyle={styles.container} scrollEnabled='false'>
                 <View style = {styles.container}>
+                    <Text>
+                        {"\t"}If you are already logged in, you may sign out or go to one of the views.
+                    </Text>
+                    <Text>
+                        {"\t"}Otherwise, input an email and password, and either create a new account with it or log into an existing one.
+                    </Text>
                     <TextInput style = {styles.input}
                     underlineColorAndroid = "transparent"
                     placeholder = "Email"

@@ -163,7 +163,7 @@ class ListView extends Component {
       //console.log(this.state.categories)
       return (
         <View>
-          <Header title = "List View" navigation = {this.props} backbutton = {true} addbutton = {true} isListView = {true} useMeDaddy = {this.getInfo}/>
+          <Header title = "List View" navigation = {this.props} backbutton = {true} addbutton = {true} isListView = {true}/>
           {/* <FlatList
             data={DATA}
             renderItem={this.renderItem}

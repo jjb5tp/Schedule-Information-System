@@ -34,7 +34,6 @@ export default class App extends React.Component{
           headerShown: false
         }}>
 
-
           <Stack.Screen name = "LoginPage" component = {LoginPage}/>
           <Stack.Screen name = "CalendarList" component = {CalendarList}/>
           <Stack.Screen name = "CalendarScreen" component = {CalendarScreen}/>

@@ -19,10 +19,6 @@ const Header = (props) => {
     const cancelbutton = props.cancelbutton;
     const submitbutton = props.submitbutton;
     const categoryinfo = props.categoryinfo;
-
-    const isListView = props.isListView;
-
-    const useMeDaddy = props.useMeDaddy;
     
 
     return(
@@ -39,9 +35,7 @@ const Header = (props) => {
                 )
             }
             {addbutton && (
-                <Button title="Go back" onPress={() => {{navigation.navigate('AddCategory', {
-                    onGoBack: () => useMeDaddy,
-                })}}
+                <Button title="Go back" onPress={() => {navigation.navigate('AddCategory')}
                 } style = {styles.add_button}>
                     <Text> Add </Text>
                 </Button>)
