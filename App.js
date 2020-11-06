@@ -25,8 +25,6 @@ export default class App extends React.Component{
       isLoadingComplete: false,
       loggedIn: false,
     }
-
-    
   }
   
   render(){
