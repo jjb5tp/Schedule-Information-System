@@ -396,6 +396,7 @@ const CalendarsScreen = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false} testID={testIDs.calendars.CONTAINER}>
       {renderCalendarWithSelectableDate()}
+      {renderCalendarWithWeekNumbers()}
       {renderCalendarWithMarkedDatesAndHiddenArrows()}
       {renderCalendarWithPeriodMarkingAndSpinner()}
       {renderCalendarWithPeriodMarkingAndDotMarking()}
