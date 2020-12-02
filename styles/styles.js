@@ -30,7 +30,7 @@ export const HeaderStyle = StyleSheet.create({
         width: '25%',
     },
     add_button: {
-        alignSelf: 'flex-end', // the button will be on the left side
+        alignSelf: 'flex-end', // the button will be on the right side
         justifyContent: 'flex-end', // the text in the button will be on the left side
         alignItems: 'flex-end', // the text in the button will be on the bottom side
         backgroundColor: 'purple',
@@ -58,6 +58,67 @@ export const HeaderStyle = StyleSheet.create({
         position: 'absolute',
         height: '40%',
         width: '25%',
+    },
+    back_button_text: {
+        color: '#F3F3F3',
+        fontSize: 18,
+        fontWeight: '500',
+    },
+    days_of_the_week: {
+
+    },
+})
+
+export const FooterStyle = StyleSheet.create({
+    container:{
+        height: "9%",
+        width: "100%",
+        backgroundColor: '#09090B',
+        justifyContent: 'center',
+        //flexDirection: 'row',
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+        shadowColor: 'grey',
+        shadowOpacity: 100,
+        shadowOffset: {width: 0, height: 4.5},
+        position: 'absolute',
+        bottom: 0,
+    },
+    sign_out_button: {
+        alignSelf: 'flex-start', // the button will be on the left side
+        justifyContent: 'center', // the text in the button will be on the left side
+        alignItems: 'flex-end', // the text in the button will be on the bottom side
+        backgroundColor: '#3C3844',
+        borderRadius: 99,
+        //backgroundColor: 'transparent',
+        position: 'absolute',
+        top: 0,
+        height: '40%',
+        width: '25%',
+    },
+    calendar_view_button: {
+        alignSelf: 'flex-end', // the button will be on the left side
+        justifyContent: 'center', // the text in the button will be on the left side
+        alignItems: 'flex-end', // the text in the button will be on the bottom side
+        backgroundColor: '#5E60CE',
+        borderRadius: 99,
+        //backgroundColor: 'transparent',
+        position: 'absolute',
+        top: 0,
+        height: '40%',
+        width: '32%',
+    },
+    list_view_button: {
+        alignSelf: 'flex-end', // the button will be on the left side
+        justifyContent: 'center', // the text in the button will be on the left side
+        alignItems: 'flex-end', // the text in the button will be on the bottom side
+        backgroundColor: '#5E60CE',
+        borderRadius: 99,
+        //backgroundColor: 'transparent',
+        position: 'absolute',
+        top: 0,
+        height: '40%',
+        width: '23%',
     },
     back_button_text: {
         color: '#F3F3F3',

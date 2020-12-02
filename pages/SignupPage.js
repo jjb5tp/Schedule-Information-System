@@ -12,13 +12,15 @@ import fire, {database} from '../components/firebase';
 import {LoginPageStyle} from '../styles/styles';
 const styles = StyleSheet.flatten(LoginPageStyle);
 
-class LoginPage extends Component {
+class SignupPage extends Component {
 
     constructor(props) {
         super(props)
+        const {route} = this.props;
         this.state = {
-            email: "",
-            password: "",
+            email: route.params.email,
+            password: route.params.password,
+            password2: "",
             loggedIn: "",
         }
     }
@@ -30,32 +32,35 @@ class LoginPage extends Component {
     handlePassword = (text) => {
         this.setState({ password: text })
     }
-    
-    login = (email, password) => {
-        if (fire.auth().currentUser){
-            alert('already signed in');
-        }
-        else{
-            const { navigation } = this.props;
-            fire.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // ...
-                alert(error);
-            }).then( (error)=> {
-                if (error)
-                    navigation.navigate('CalendarList') 
-            });
-        }
+    handlePassword2 = (text) => {
+        this.setState({ password2: text })
     }
-    signUp = () => {
+    
+    signUp = (email, password, password2) => {
         if (fire.auth().currentUser){
             alert('already signed in');
         }
         else{
-            const { navigation } = this.props;
-            navigation.navigate('SignupPage', { email: this.state.email, password: this.state.password })
+            if (this.state.password != this.state.password2){
+                alert('Passwords do not match')
+            }
+            else{
+                const { navigation } = this.props;
+                
+                //alert('email: ' + email + ' password: ' + password)
+                fire.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // ...
+                    alert(errorMessage);
+                }).then( (error)=> {
+                    if (error){
+                        database.collection(email).doc("first").set({})
+                        navigation.navigate('CalendarList')
+                    }
+                });
+            }
         }
     }
 
@@ -67,22 +72,43 @@ class LoginPage extends Component {
             alert('not signed in');
         }
     }
-    
+
+    cancel = () => {
+        if (fire.auth().currentUser){
+            alert('already signed in');
+        }
+        else{
+            const { navigation } = this.props;
+            navigation.navigate('LoginPage')
+        }
+    }
+
+    // componentDidMount() {
+    //     const { route } = this.props;
+    //     this.handleEmail(route.params.email)
+    //     this.handlePassword(route.params.password)
+    // }
+
     render() {
-        const { navigation } = this.props;
+        const { route, navigation } = this.props;
+        const email = route.params.email;
+        const password = route.params.password;
         if (fire.auth().currentUser){
             navigation.navigate("ListView")
         }
+        
         return (
             <Container>
-                <Header title = "Login" navigation = {this.props} backbutton = {false}/>
+                <Header title = "Sign Up" navigation = {this.props} backbutton = {false}/>
                 <Content contentContainerStyle={styles.container} scrollEnabled='false'>
                     
                     <View style = {styles.container}>
+
                         <TextInput style = {styles.input}
                         underlineColorAndroid = "transparent"
                         placeholder = "Email"
                         placeholderTextColor = "#9a73ef"
+                        value = {this.state.email}
                         autoCapitalize = "none"
                         onChangeText = {this.handleEmail}/>
                         
@@ -92,29 +118,36 @@ class LoginPage extends Component {
                         placeholderTextColor = "#9a73ef"
                         autoCapitalize = "none"
                         onChangeText = {this.handlePassword}/>
-                        
+
+                        <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "Confirm Password"
+                        placeholderTextColor = "#9a73ef"
+                        autoCapitalize = "none"
+                        onChangeText = {this.handlePassword2}/>
+
                         <TouchableOpacity
                         style = {styles.submitButton}
                         onPress = {
-                            () => this.login(this.state.email, this.state.password)
+                            () => this.signOut()
                         }>
-                            <Text style = {styles.submitButtonText}> Login </Text>
+                            <Text style = {styles.submitButtonText}> Sign out </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                         style = {styles.submitButton}
                         onPress = {
-                            () => this.signUp()
+                            () => this.signUp(this.state.email, this.state.password, this.state.password2)
                         }>
-                            <Text style = {styles.submitButtonText}> New user? Create an account here </Text>
+                            <Text style = {styles.submitButtonText}> Submit </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                         style = {styles.submitButton}
                         onPress = {
-                            () => this.forceUpdate()
+                            () => this.cancel()
                         }>
-                            <Text style = {styles.submitButtonText}> Refresh? </Text>
+                            <Text style = {styles.submitButtonText}> Cancel </Text>
                         </TouchableOpacity>
 
                     </View>
@@ -124,5 +157,5 @@ class LoginPage extends Component {
         )
     }
 }
-export default LoginPage
+export default SignupPage
 

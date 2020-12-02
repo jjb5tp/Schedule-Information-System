@@ -48,7 +48,7 @@ class AddCategory extends Component {
         const { route, navigation } = this.props;
         return (
             <Container>
-                <Header title = "Add New Category" navigation = {this.props} cancelbutton = {true} submitbutton = {true} categoryinfo = {this.state}/>
+                <Header title = "Add New Category" navigation = {this.props} cancelbutton = {true} submitcategorybutton = {true} categoryinfo = {this.state}/>
                 <Content contentContainerStyle={styles.container} scrollEnabled='false'>
                 <View style = {styles.container}>
 

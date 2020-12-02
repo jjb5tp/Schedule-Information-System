@@ -6,16 +6,20 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 //pages
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 import AgendaScreen from './pages/AgendaScreen';
 import CalendarList from './pages/CalendarList';
 import CalendarScreen from './pages/CalendarScreen';
 import CalendarYearView from './pages/CalendarYearView';
-import CalendarYearViewBackup from './pages/CalendarYearViewBackup';
-import ExpandableCalendarScreen from './pages/ExpandableCalendarScreen';
-import TimelineCalendarScreen from './pages/TimelineCalendarScreen';
-import LoginPage from './pages/LoginPage';
 import AddCategory from './pages/AddCategory';
-import ListOfItems from './pages/ListView';
+import ListView from './pages/ListView';
+import ObjectView from './pages/ObjectView';
+import AddObject from './pages/AddObject';
+
+import {LogBox} from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 
 export default class App extends React.Component{
@@ -30,16 +34,18 @@ export default class App extends React.Component{
   render(){
     return (
       <NavigationContainer>
-        <Stack.Navigator screenOptions = {{
-          headerShown: false
-        }}>
+        <Stack.Navigator initialRouteName = {"LoginPage"} screenOptions = {{headerShown: false}} >
 
           <Stack.Screen name = "LoginPage" component = {LoginPage}/>
+          <Stack.Screen name = "SignupPage" component = {SignupPage}/>
           <Stack.Screen name = "CalendarList" component = {CalendarList}/>
           <Stack.Screen name = "CalendarScreen" component = {CalendarScreen}/>
+          <Stack.Screen name = "CalendarYearView" component = {CalendarYearView}/>
           <Stack.Screen name = "AgendaScreen" component = {AgendaScreen}/>
           <Stack.Screen name = "AddCategory" component = {AddCategory}/>
-          <Stack.Screen name = "ListView" component = {ListOfItems}/>
+          <Stack.Screen name = "AddObject" component = {AddObject}/>
+          <Stack.Screen name = "ListView" component = {ListView}/>
+          <Stack.Screen name = "ObjectView" component = {ObjectView}/>
           
         </Stack.Navigator>
       </NavigationContainer>

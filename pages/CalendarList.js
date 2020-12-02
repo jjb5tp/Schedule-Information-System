@@ -51,7 +51,7 @@ class CalendarsList extends Component {
   render() {
     return (
       <Container>
-        <Header title = "Calendar View" navigation = {this.props} backbutton = {true} addbutton = {true}/>
+        <Header title = "Calendar View" navigation = {this.props} addbutton = {true}/>
         <CalendarList
           testID={testIDs.calendarList.CONTAINER}
           current={'2020-06-10'}
@@ -101,6 +101,9 @@ class CalendarsList extends Component {
             }
           }}
         />
+        
+        <Footer navigation = {this.props} signoutbutton = {true} isListView = {false}/>
+        
       </Container>
     );
   }
