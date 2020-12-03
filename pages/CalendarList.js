@@ -26,39 +26,67 @@ class CalendarsList extends Component {
     this.state = {
       email: "",
       password: "",
-      categories: {},
+      categories: []
     }
   }
 
   componentDidMount() {
-    var newItems = {};
-    database.collection(fire.auth().currentUser.email).get().then(function(querySnapshot) {
-      querySnapshot.forEach(function(documents) {
-        //console.log(documents);
-        var id = documents.id;
-        var data = documents.data()
-        newItems[id] = data
-      });
-    }).then(
-      this.setState({
-        categories: newItems
-      })
-    ).catch((error) => {
-      console.error(error);
-    })
+    console.log("pens")
+    this.getInfo()
   }
 
+  getInfo = async () => {
+    const newItems = []
+    const querySnapshot = await database.collection(fire.auth().currentUser.email).get()
+    querySnapshot.forEach(function(documents) {
+      //console.log(documents);
+      var id = documents.id;
+      var data = documents.data()
+      
+      console.log("data")
+      console.log(data.assignments)
+      newItems.push({id, data})
+    });
+    console.log(newItems)
+    this.setState({
+      categories: newItems,
+      ready: true
+    })
+    
+  }
+
+  
+
   render() {
+    console.log(this.state.categories)
     return (
       <Container>
-        <Header title = "Calendar View" navigation = {this.props} backbutton = {true} addbutton = {true}/>
+        <Header title = "Calendar View" navigation = {this.props} addbutton = {true}/>
         <CalendarList
           testID={testIDs.calendarList.CONTAINER}
-          current={'2020-06-10'}
-          pastScrollRange={24}
-          futureScrollRange={24}
+          current={'2012-05-16'}
+          disableAllTouchEventsForDisabledDays
+          pastScrollRange={69}
+          futureScrollRange={69}
+          markingType={'multi-dot'}
+          markedDates={{
+            '2012-05-08': {
+              selected: true,
+              dots: [
+                {key: 'vacation', color: 'blue', selectedDotColor: 'red'},
+                {key: 'massage', color: 'red', selectedDotColor: 'white'},
+              ],
+            },
+            '2012-05-09': {
+              disabled: true,
+              dots: [
+                {key: 'vacation', color: 'green', selectedDotColor: 'red'},
+                {key: 'massage', color: 'red', selectedDotColor: 'green'},
+              ],
+            },
+          }}
           renderHeader={(date) => {
-            const header = date.toString('MMMM yyyy');
+            const header = date.toString('MMMM, yyyy');
             const [month, year] = header.split(' ');
             const textStyle = {
               fontSize: 18,
@@ -73,12 +101,11 @@ class CalendarsList extends Component {
               <View style={{
                 flexDirection: 'row',
                 width: '100%',
-                justifyContent: 'space-between',
+                justifyContent: 'center',
                 marginTop: 10,
                 marginBottom: 10
               }}>
-              <Text style={{marginLeft: 5, ...textStyle}}>{`${month}`}</Text>
-              <Text style={{marginRight: 5, ...textStyle}}>{year}</Text>
+              <Text style={textStyle}>{`${header}`}</Text>
               </View>
             );
           }}
@@ -101,6 +128,9 @@ class CalendarsList extends Component {
             }
           }}
         />
+        
+        <Footer navigation = {this.props} signoutbutton = {true} isListView = {false}/>
+        
       </Container>
     );
   }

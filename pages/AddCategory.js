@@ -26,6 +26,7 @@ class AddCategory extends Component {
 
     handleTitle = (text) => {
         this.setState({ title: text })
+        
     }
     handleDescription = (text) => {
         this.setState({ description: text })
@@ -48,36 +49,33 @@ class AddCategory extends Component {
         const { route, navigation } = this.props;
         return (
             <Container>
-                <Header title = "Add New Category" navigation = {this.props} cancelbutton = {true} submitbutton = {true} categoryinfo = {this.state}/>
+                <Header title = "Add New Category" navigation = {this.props} cancelbutton = {true} submitcategorybutton = {true} categoryinfo = {this.state}/>
                 <Content contentContainerStyle={styles.container} scrollEnabled='false'>
-                <View style = {styles.container}>
+                    <View style = {styles.container}>
 
-                    <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Title"
-                    placeholderTextColor = "#9a73ef"
-                    autoCapitalize = "none"
-                    onChangeText = {this.handleTitle}/>
-                    
-                    <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Description"
-                    placeholderTextColor = "#9a73ef"
-                    autoCapitalize = "none"
-                    onChangeText = {this.handleDescription}/>
-                    
-                    <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Color (in hexadecimal for now)"
-                    placeholderTextColor = "#9a73ef"
-                    autoCapitalize = "none"
-                    onChangeText = {this.handleColor}/>
-                    
-                    
-
-                    
-
-                </View>
+                        <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "Title"
+                        placeholderTextColor = "#9a73ef"
+                        autoCapitalize = "none"
+                        onChangeText = {this.handleTitle}
+                        onSubmitEditing = {this.handleTitle}/>
+                        
+                        <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "Description"
+                        placeholderTextColor = "#9a73ef"
+                        autoCapitalize = "none"
+                        onChangeText = {this.handleDescription}/>
+                        
+                        <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "Color (in hexadecimal for now)"
+                        placeholderTextColor = "#9a73ef"
+                        autoCapitalize = "none"
+                        onChangeText = {this.handleColor}/>
+                        
+                    </View>
                 </Content>
             </Container>
         )

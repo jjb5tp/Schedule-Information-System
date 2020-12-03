@@ -3,7 +3,7 @@ import {StyleSheet } from 'react-native';
 
 export const HeaderStyle = StyleSheet.create({
     container:{
-        height: 110,
+        height: '9%',
         width: "100%",
         backgroundColor: '#09090B',
         justifyContent: 'flex-end',
@@ -23,41 +23,108 @@ export const HeaderStyle = StyleSheet.create({
         alignSelf: 'flex-start', // the button will be on the left side
         justifyContent: 'flex-start', // the text in the button will be on the left side
         alignItems: 'flex-end', // the text in the button will be on the bottom side
-        backgroundColor: 'purple',
+        //backgroundColor: 'purple',
         //backgroundColor: 'transparent',
         position: 'absolute',
         height: '40%',
         width: '25%',
     },
     add_button: {
-        alignSelf: 'flex-end', // the button will be on the left side
-        justifyContent: 'flex-end', // the text in the button will be on the left side
+        alignSelf: 'flex-end', // the button will be on the right side
+        justifyContent: 'center', // the text in the button will be on the left side
         alignItems: 'flex-end', // the text in the button will be on the bottom side
-        backgroundColor: 'purple',
+        backgroundColor: '#5E60CE',
+        borderRadius: 99,
         //backgroundColor: 'transparent',
         position: 'absolute',
+        bottom: 0,
         height: '40%',
-        width: '25%',
+        width: '20%',
     },
     cancel_button: {
-        alignSelf: 'flex-start', // the button will be on the left side
-        justifyContent: 'flex-start', // the text in the button will be on the left side
+        alignSelf: 'flex-start', // the button will be on the right side
+        justifyContent: 'center', // the text in the button will be on the left side
         alignItems: 'flex-end', // the text in the button will be on the bottom side
-        backgroundColor: 'purple',
+        backgroundColor: 'red',
+        borderRadius: 99,
         //backgroundColor: 'transparent',
         position: 'absolute',
+        bottom: 0,
+        height: '40%',
+        width: '23%',
+    },
+    submit_button: {
+        alignSelf: 'flex-end', // the button will be on the right side
+        justifyContent: 'center', // the text in the button will be on the left side
+        alignItems: 'flex-end', // the text in the button will be on the bottom side
+        backgroundColor: '#5E60CE',
+        borderRadius: 99,
+        //backgroundColor: 'transparent',
+        position: 'absolute',
+        bottom: 0,
+        height: '40%',
+        width: '23%',
+    },
+    back_button_text: {
+        color: '#F3F3F3',
+        fontSize: 18,
+        fontWeight: '500',
+    },
+    days_of_the_week: {
+
+    },
+})
+
+export const FooterStyle = StyleSheet.create({
+    container:{
+        height: "9%",
+        width: "100%",
+        backgroundColor: '#09090B',
+        justifyContent: 'center',
+        //flexDirection: 'row',
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+        shadowColor: 'grey',
+        shadowOpacity: 100,
+        shadowOffset: {width: 0, height: 4.5},
+        position: 'absolute',
+        bottom: 0,
+    },
+    sign_out_button: {
+        alignSelf: 'flex-start', // the button will be on the left side
+        justifyContent: 'center', // the text in the button will be on the left side
+        alignItems: 'flex-end', // the text in the button will be on the bottom side
+        backgroundColor: '#3C3844',
+        borderRadius: 99,
+        //backgroundColor: 'transparent',
+        position: 'absolute',
+        top: 0,
         height: '40%',
         width: '25%',
     },
-    submit_button: {
-        alignSelf: 'flex-end', // the button will be on the left side
-        justifyContent: 'flex-end', // the text in the button will be on the left side
+    calendar_view_button: {
+        alignSelf: 'flex-end', // the button will be on the right side
+        justifyContent: 'center', // the text in the button will be on the left side
         alignItems: 'flex-end', // the text in the button will be on the bottom side
-        backgroundColor: 'purple',
+        backgroundColor: '#5E60CE',
+        borderRadius: 99,
         //backgroundColor: 'transparent',
         position: 'absolute',
+        top: 0,
         height: '40%',
-        width: '25%',
+        width: '32%',
+    },
+    list_view_button: {
+        alignSelf: 'flex-end', // the button will be on the right side
+        justifyContent: 'center', // the text in the button will be on the left side
+        alignItems: 'flex-end', // the text in the button will be on the bottom side
+        backgroundColor: '#5E60CE',
+        borderRadius: 99,
+        //backgroundColor: 'transparent',
+        position: 'absolute',
+        top: 0,
+        height: '40%',
+        width: '23%',
     },
     back_button_text: {
         color: '#F3F3F3',
@@ -110,42 +177,101 @@ export const AgendaScreenStyle = StyleSheet.create({
 
 export const LoginPageStyle = StyleSheet.create({
     container: {
-       paddingTop: 23
+        paddingTop: 23
     },
     input: {
-       margin: 15,
-       height: 40,
-       borderColor: '#7a42f4',
-       borderWidth: 1
+        margin: 15,
+        height: 40,
+        borderColor: '#7a42f4',
+        borderWidth: 1
     },
     submitButton: {
-       backgroundColor: '#7a42f4',
-       padding: 10,
-       margin: 15,
-       height: 40,
+        backgroundColor: '#7a42f4',
+        padding: 10,
+        margin: 15,
+        height: 40,
     },
     submitButtonText:{
-       color: 'white'
+        color: 'white'
     }
- })
+})
 
- export const ListViewStyle = StyleSheet.create({
+export const ListViewStyle = StyleSheet.create({
     container: {
-       paddingTop: 23
+        paddingTop: 23
+    },
+    card: {
+        shadowColor: 'grey',
+        shadowOpacity: 100,
+        shadowOffset: {width: 0, height: 4.5},
+        //backgroundColor: 'green',
+        width: '100%',
+    },
+    carditem: {
+        justifyContent: 'space-between', // the text in the button will be in the center
+        // alignItems: 'flex-start',
+        //backgroundColor: 'purple',
+        width: '100%',
     },
     input: {
-       margin: 15,
-       height: 40,
-       borderColor: '#7a42f4',
-       borderWidth: 1
+        margin: 15,
+        height: 40,
+        borderColor: '#7a42f4',
+        borderWidth: 1
     },
     submitButton: {
-       backgroundColor: '#7a42f4',
-       padding: 10,
-       margin: 15,
-       height: 40,
+        backgroundColor: '#7a42f4',
+        padding: 10,
+        margin: 15,
+        height: 40,
+    },
+    editButton: {
+        alignSelf: 'flex-end', // the button will be on the right side
+        justifyContent: 'center', // the text in the button will be in the center
+        alignItems: 'flex-end', // the text in the button will be on the bottom side
+        backgroundColor: '#5E60CE',
+        borderRadius: 99,
+        height: 40,
+    },
+    deleteButton: {
+        alignSelf: 'flex-end', // the button will be on the right side
+        justifyContent: 'center', // the text in the button will be in the center
+        alignItems: 'center', // the text in the button will be on the bottom side
+        backgroundColor: '#5E60CE',
+        borderRadius: 99,
+        height: 40,
     },
     submitButtonText:{
-       color: 'white'
+        color: 'white'
     }
- })
+})
+
+
+export const AddObjectStyle = StyleSheet.create({
+    container: {
+        paddingTop: 23
+     },
+     input: {
+        margin: 15,
+        height: 40,
+        borderColor: '#7a42f4',
+        borderWidth: 1
+     },
+     submitButton: {
+        backgroundColor: '#7a42f4',
+        padding: 10,
+        margin: 15,
+        height: 40,
+     },
+     submitButtonText:{
+        color: 'white'
+     },
+
+    container2: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        width: 200,
+    },
+})
