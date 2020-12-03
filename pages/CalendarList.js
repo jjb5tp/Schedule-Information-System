@@ -16,6 +16,9 @@ import fire, {database} from '../components/firebase';
 // styles
 //import {PageStyle} from '../styles/styles';
 //const styles = StyleSheet.flatten(PageStyle);
+const class1 = {key:'class1', color: 'red'};
+const class2 = {key:'class2', color: 'blue'};
+const class3 = {key:'class3', color: 'green'};
 
 const testIDs = require('./testIDs');
 
@@ -57,6 +60,34 @@ class CalendarsList extends Component {
           current={'2020-12-02'}
           pastScrollRange={69}
           futureScrollRange={69}
+          theme={{
+            textSectionTitleDisabledColor: 'gray',
+            dayTextColor: 'white',
+            calendarBackground:"black",
+            'stylesheet.calendar.header': {
+              dayHeader: {
+                fontWeight: '600',
+                color: 'white'
+              }
+            },
+            'stylesheet.day.basic': {
+              today: {
+                borderColor: 'blue',
+                borderWidth: 0.8
+              },
+              todayText: {
+                color: 'white',
+                fontWeight: '800'
+              }
+            }
+          }}
+          markedDates={{
+            '2020-12-25': {dots: [class1]},
+            '2020-12-26': {dots: [class2]},
+            '2020-12-27': {dots: [class3]},
+            // '2020-12-02': {selected:true}
+          }}
+          markingType={'multi-dot'}
           renderHeader={(date) => {
             const header = date.toString('MMMM, yyyy');
             const [month, year] = header.split(' ');
@@ -65,7 +96,7 @@ class CalendarsList extends Component {
               fontWeight: 'bold',
               paddingTop: 10,
               paddingBottom: 10,
-              color: '#5E60CE',
+              color: 'white',
               paddingRight: 5
             };
 
@@ -81,24 +112,7 @@ class CalendarsList extends Component {
               </View>
             );
           }}
-          theme={{
-            'stylesheet.calendar.header': {
-              dayHeader: {
-                fontWeight: '600',
-                color: '#48BFE3'
-              }
-            },
-            'stylesheet.day.basic': {
-              today: {
-                borderColor: '#48BFE3',
-                borderWidth: 0.8
-              },
-              todayText: {
-                color: '#5390D9',
-                fontWeight: '800'
-              }
-            }
-          }}
+          
         />
         
         <Footer navigation = {this.props} signoutbutton = {true} isListView = {false}/>

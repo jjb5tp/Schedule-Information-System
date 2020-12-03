@@ -66,7 +66,7 @@ class ListView extends Component {
     else{
       //console.log(this.state.categories)
       return (
-        <View style={{ backgroundColor: 'purple', height: '100%' }}>
+        <View style={{ backgroundColor: 'black', height: '100%' }}>
           <Header title = "Classes" navigation = {this.props} addbutton = {true} isListView = {true}/>
 
           <TouchableOpacity

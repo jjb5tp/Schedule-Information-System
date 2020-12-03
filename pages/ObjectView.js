@@ -19,6 +19,7 @@ class ListView extends Component {
     this.state = {
       ready: false,
       categoryName: "",
+      categoryInfo: "",
     }
   }
 
@@ -35,6 +36,7 @@ class ListView extends Component {
       this.setState({
         ready: true,
         categoryName: categoryName,
+        categoryInfo: output.data()
       })
     })
     
@@ -48,7 +50,7 @@ class ListView extends Component {
   
 
   render() {
-    
+    console.log(this.state.categoryInfo)
     return (
         <Container>
             <Header title = {this.state.categoryName} navigation = {this.props} backbutton = {true} addobjectbutton = {true}/>
@@ -57,7 +59,7 @@ class ListView extends Component {
                 <View style = {{flex: 2, width: '100%'}}>
                     <Text>
                       {this.state.categoryName + "\n"}
-                      Other info
+                      hi there
                     </Text>
                 </View>
                 
