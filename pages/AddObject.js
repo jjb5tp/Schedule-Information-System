@@ -21,7 +21,6 @@ class AddObject extends Component {
     constructor(props) {
         super(props)
         const {route} = this.props;
-        console.log( route.params.category)
         this.state = {
             category: route.params.category,
             name: "",
@@ -63,7 +62,6 @@ class AddObject extends Component {
     
     render() {
         const { navigation } = this.props;
-        //console.log(this.state)
         return (
             <Container>
                 <Header title = "Add New Assignment" navigation = {this.props} cancelbutton = {true} submitobjectbutton = {true} objectinfo = {this.state}/>

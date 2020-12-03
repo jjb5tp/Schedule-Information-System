@@ -88,7 +88,6 @@ const Header = (props) => {
                                 alert("Please enter a name")
                                 return
                             }
-                            console.log(fire.auth().currentUser.email, objectinfo.category, "assignments", objectinfo.name)
                             database.collection(fire.auth().currentUser.email).doc(objectinfo.category).collection("assignments").doc(objectinfo.name).set({
                                 dueDate: objectinfo.dueDate,
                                 dueTime: objectinfo.dueTime,

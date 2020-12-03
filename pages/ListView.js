@@ -73,7 +73,6 @@ class ListView extends Component {
 
       tempArray.push(tempObject)
     }
-    //console.log(tempArray)
     this.setState({
       categories: tempArray,
       ready: true,
@@ -89,41 +88,6 @@ class ListView extends Component {
 
     const rest = await database.collection(fire.auth().currentUser.email).doc(className).collection("assignments").doc(assignmentName).delete()
   }
-
-  // deleteClass = async (className) => {
-  //   const classBoi = await database.collection(fire.auth().currentUser.email).doc(className).get()
-    
-  //   var assignments = await database.collection(fire.auth().currentUser.email).doc(className).collection("assignments").get()
-  //   var assignmentsByName = []
-  //   assignments.forEach((doc) => {
-  //     assignmentsByName.push(doc.id)
-  //     // console.log(doc.data())
-  //     // console.log("penis")
-  //   });
-    
-  //   var i;
-  //   for (i = 0; i < assignmentsByName.length; i++){
-  //     const rest = await database.collection(fire.auth().currentUser.email).doc(className).collection("assignments").doc(assignmentsByName[0]).delete()
-  //   }
-
-  //   var assignments = await database.collection(fire.auth().currentUser.email).get()
-  //   var assignmentsByName = []
-  //   assignments.forEach((doc) => {
-  //     assignmentsByName.push(doc.id)
-  //     // console.log(doc.data())
-  //     // console.log("penis")
-  //   });
-  
-  //   var i;
-  //   for (i = 0; i < assignmentsByName.length; i++){
-  //     const rest = await database.collection(fire.auth().currentUser.email).doc(assignmentsByName[0]).delete()
-  //   }
-
-  //   this.setState({
-  //     toggle: !this.state.toggle,
-  //   })
-
-  // }
 
 
   deleteClass = async (className) => {
@@ -176,7 +140,6 @@ class ListView extends Component {
     const { navigation } = this.props;
     if (!this.state.ready) return null;
     var empty = false;
-    console.log(this.state.categories.length)
     if (this.state.categories.length == 0)
       empty = true;
       

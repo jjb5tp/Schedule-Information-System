@@ -25,7 +25,7 @@ class AddCategory extends Component {
     
 
     handleTitle = (text) => {
-        this.setState({ title: text }, () => { console.log(this.state.title)})
+        this.setState({ title: text })
         
     }
     handleDescription = (text) => {
