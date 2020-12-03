@@ -70,7 +70,7 @@ class AddCategory extends Component {
                         
                         <TextInput style = {styles.input}
                         underlineColorAndroid = "transparent"
-                        placeholder = "Color (in hexadecimal for now)"
+                        placeholder = "Color in hexadecimal (# followed by 6 digits)"
                         placeholderTextColor = "#9a73ef"
                         autoCapitalize = "none"
                         onChangeText = {this.handleColor}/>

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {StyleSheet, ImageBackground, View, TouchableOpacity, TextInput } from 'react-native';
 
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-
 //react-native components
 import {Button, Text, Container, Content } from 'native-base';
 
@@ -84,7 +81,7 @@ class AddObject extends Component {
                     
                     <TextInput style = {styles.input}
                     underlineColorAndroid = "transparent"
-                    placeholder = "Due Date"
+                    placeholder = "Due Date (in the form YYY-MM-DD)"
                     placeholderTextColor = "#9a73ef"
                     autoCapitalize = "none"
                     onChangeText = {this.handleDueDate}/>

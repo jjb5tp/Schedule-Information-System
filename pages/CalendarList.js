@@ -16,6 +16,11 @@ import fire, {database} from '../components/firebase';
 // styles
 //import {PageStyle} from '../styles/styles';
 //const styles = StyleSheet.flatten(PageStyle);
+const class1 = {key:'class1', color: 'red'};
+const class2 = {key:'class2', color: 'blue'};
+const class3 = {key:'class3', color: 'green'};
+
+console.log(class1)
 
 const testIDs = require('./testIDs');
 
@@ -26,65 +31,120 @@ class CalendarsList extends Component {
     this.state = {
       email: "",
       password: "",
-      categories: []
+      categories: {},
+      markedDates: {},
     }
   }
 
+
   componentDidMount() {
-    console.log("pens")
-    this.getInfo()
+    var newItems = {};
+    database.collection(fire.auth().currentUser.email).get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(documents) {
+        //console.log(documents);
+        var id = documents.id;
+        var data = documents.data()
+        newItems[id] = data
+      });
+    }).then(
+      this.setState({
+        categories: newItems
+      })
+    ).catch((error) => {
+      console.error(error);
+    })
+
+    this.getInfo();
   }
 
   getInfo = async () => {
-    const newItems = []
-    const querySnapshot = await database.collection(fire.auth().currentUser.email).get()
-    querySnapshot.forEach(function(documents) {
-      //console.log(documents);
-      var id = documents.id;
-      var data = documents.data()
-      
-      console.log("data")
-      console.log(data.assignments)
-      newItems.push({id, data})
+    const categories = await database.collection(fire.auth().currentUser.email).get()
+
+    var classesByName = []
+    categories.forEach(function(category) {
+      if (category.id != "---"){
+        classesByName.push(category.id)
+      }
     });
-    console.log(newItems)
+
+
+    var dates = {};
+    var tempObject;
+    var i;
+    for (i = 0; i < classesByName.length; i++){
+      var colorboi = await database.collection(fire.auth().currentUser.email).doc(classesByName[i]).get()
+      var assignments = await database.collection(fire.auth().currentUser.email).doc(classesByName[i]).collection("assignments").get()
+      assignments.forEach(doc => {
+        if (doc.id == "---"){
+
+        }
+        else{
+          if (doc.data()["dueDate"] in dates){
+            var tempObj2 = {}
+            tempObj2.color = colorboi.data()["color"]
+            tempObj2.key = colorboi.data()["color"]
+            dates[doc.data()["dueDate"]]["dots"].push(tempObj2)
+            // console.log(tempObject)
+          }
+          else{
+            var tempObj = {}
+            var tempArray = []
+            var tempObj2 = {}
+            tempObj2.color = colorboi.data()["color"]
+            tempObj2.key = colorboi.data()["color"]
+            tempArray.push(tempObj2)
+            tempObj["dots"] = tempArray
+            dates[doc.data()["dueDate"]] = tempObj
+          }
+        }
+        
+        
+      });
+
+    }
+    console.log("__________________________")
+    console.log(dates)
     this.setState({
-      categories: newItems,
-      ready: true
+      markedDates: dates,
+      ready: true,
     })
-    
+
   }
 
-  
+
 
   render() {
-    console.log(this.state.categories)
     return (
       <Container>
         <Header title = "Calendar View" navigation = {this.props} addbutton = {true}/>
         <CalendarList
           testID={testIDs.calendarList.CONTAINER}
-          current={'2012-05-16'}
-          disableAllTouchEventsForDisabledDays
+          current={'2020-12-02'}
           pastScrollRange={69}
           futureScrollRange={69}
-          markingType={'multi-dot'}
-          markedDates={{
-            '2012-05-08': {
-              selected: true,
-              dots: [
-                {key: 'vacation', color: 'blue', selectedDotColor: 'red'},
-                {key: 'massage', color: 'red', selectedDotColor: 'white'},
-              ],
+          theme={{
+            textSectionTitleDisabledColor: 'gray',
+            dayTextColor: 'white',
+            calendarBackground:"black",
+            'stylesheet.calendar.header': {
+              dayHeader: {
+                fontWeight: '600',
+                color: 'white'
+              }
             },
-            '2012-05-09': {
-              disabled: true,
-              dots: [
-                {key: 'vacation', color: 'green', selectedDotColor: 'red'},
-                {key: 'massage', color: 'red', selectedDotColor: 'green'},
-              ],
-            },
+            'stylesheet.day.basic': {
+              today: {
+                borderColor: 'blue',
+                borderWidth: 0.8
+              },
+              todayText: {
+                color: 'white',
+                fontWeight: '800'
+              }
+            }
           }}
+          markedDates={this.state.markedDates}
+          markingType={'multi-dot'}
           renderHeader={(date) => {
             const header = date.toString('MMMM, yyyy');
             const [month, year] = header.split(' ');
@@ -93,7 +153,7 @@ class CalendarsList extends Component {
               fontWeight: 'bold',
               paddingTop: 10,
               paddingBottom: 10,
-              color: '#5E60CE',
+              color: 'white',
               paddingRight: 5
             };
 
@@ -109,24 +169,7 @@ class CalendarsList extends Component {
               </View>
             );
           }}
-          theme={{
-            'stylesheet.calendar.header': {
-              dayHeader: {
-                fontWeight: '600',
-                color: '#48BFE3'
-              }
-            },
-            'stylesheet.day.basic': {
-              today: {
-                borderColor: '#48BFE3',
-                borderWidth: 0.8
-              },
-              todayText: {
-                color: '#5390D9',
-                fontWeight: '800'
-              }
-            }
-          }}
+          
         />
         
         <Footer navigation = {this.props} signoutbutton = {true} isListView = {false}/>
