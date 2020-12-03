@@ -156,22 +156,6 @@ class ListView extends Component {
               <Text style = {styles.submitButtonText}> Refresh page </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-          style = {styles.submitButton}
-          onPress = {
-              () => navigation.navigate('CalendarScreen')
-          }>
-              <Text style = {styles.submitButtonText}> Calendar Screen </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-          style = {styles.submitButton}
-          onPress = {
-              () => navigation.navigate('CalendarYearView')
-          }>
-              <Text style = {styles.submitButtonText}> Calendar Year View </Text>
-          </TouchableOpacity>
-
           {empty && 
             <CardItem header bordered style = {styles.carditem}>
                 <Text>
