@@ -56,7 +56,7 @@ class SignupPage extends Component {
                     alert(errorMessage);
                 }).then( (error)=> {
                     if (error){
-                        database.collection(email).doc("first").set({})
+                        database.collection(email).doc("---").set({})
                         navigation.navigate('CalendarList')
                     }
                 });
@@ -116,6 +116,7 @@ class SignupPage extends Component {
                         underlineColorAndroid = "transparent"
                         placeholder = "Password"
                         placeholderTextColor = "#9a73ef"
+                        value = {this.state.password}
                         autoCapitalize = "none"
                         onChangeText = {this.handlePassword}/>
 

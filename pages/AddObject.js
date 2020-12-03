@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {StyleSheet, ImageBackground, View, TouchableOpacity, TextInput } from 'react-native';
 
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
 //react-native components
 import {Button, Text, Container, Content } from 'native-base';
 
@@ -9,26 +12,25 @@ import Header from '../components/Header';
 import fire, {database} from '../components/firebase';
 
 // styles
-import {LoginPageStyle} from '../styles/styles';
-const styles = StyleSheet.flatten(LoginPageStyle);
+import {AddObjectStyle} from '../styles/styles';
+const styles = StyleSheet.flatten(AddObjectStyle);
+
 
 class AddObject extends Component {
 
     constructor(props) {
         super(props)
+        const {route} = this.props;
+        console.log( route.params.category)
         this.state = {
-            category: "",
+            category: route.params.category,
             name: "",
             dueDate: "",
             dueTime: "",
-            recommendation: "",
-            repeatUntil: "",
+            description: "",
         }
     }
     
-    handleCategory = (text) => {
-        this.setState({ category: text })
-    }
     handleName = (text) => {
         this.setState({ name: text })
     }
@@ -38,11 +40,14 @@ class AddObject extends Component {
     handleDueTime = (text) => {
         this.setState({ dueTime: text })
     }
-    handleRecommendation = (text) => {
-        this.setState({ recommendation: text })
+    handleDescription = (text) => {
+        this.setState({ description: text })
     }
-    handleRepeatUntil = (text) => {
-        this.setState({ repeatUntil: text })
+    handleDateChange = (text) => {
+        this.setState({ date: text })
+    }
+    handleTimeChange = (text) => {
+        this.setState({ time: text })
     }
     
     cancel = () => {
@@ -55,21 +60,15 @@ class AddObject extends Component {
         navigation.goBack();
     }
 
+    
     render() {
         const { navigation } = this.props;
         //console.log(this.state)
         return (
             <Container>
-                <Header title = "Add New Object" navigation = {this.props} cancelbutton = {true} submitobjectbutton = {true} objectinfo = {this.state}/>
+                <Header title = "Add New Assignment" navigation = {this.props} cancelbutton = {true} submitobjectbutton = {true} objectinfo = {this.state}/>
                 <Content contentContainerStyle={styles.container} scrollEnabled='false'>
                 <View style = {styles.container}>
-                    
-                    <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Category"
-                    placeholderTextColor = "#9a73ef"
-                    autoCapitalize = "none"
-                    onChangeText = {this.handleCategory}/>
 
                     <TextInput style = {styles.input}
                     underlineColorAndroid = "transparent"
@@ -77,6 +76,13 @@ class AddObject extends Component {
                     placeholderTextColor = "#9a73ef"
                     autoCapitalize = "none"
                     onChangeText = {this.handleName}/>
+
+                    <TextInput style = {styles.input}
+                    underlineColorAndroid = "transparent"
+                    placeholder = "Description"
+                    placeholderTextColor = "#9a73ef"
+                    autoCapitalize = "none"
+                    onChangeText = {this.handleDescription}/>
                     
                     <TextInput style = {styles.input}
                     underlineColorAndroid = "transparent"
@@ -92,19 +98,7 @@ class AddObject extends Component {
                     autoCapitalize = "none"
                     onChangeText = {this.handleDueTime}/>
 
-                    <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Recommendation"
-                    placeholderTextColor = "#9a73ef"
-                    autoCapitalize = "none"
-                    onChangeText = {this.handleRecommendation}/>
-
-                    <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Repeat Until"
-                    placeholderTextColor = "#9a73ef"
-                    autoCapitalize = "none"
-                    onChangeText = {this.handleRepeatUntil}/>
+                    
 
                 </View>
                 </Content>

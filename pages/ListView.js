@@ -1,7 +1,7 @@
 // react imports
 import React, {Component} from 'react';
 import { StyleSheet, View, FlatList, Text, TouchableOpacity } from 'react-native';
-import { Card, Container, Content, CardItem, Icon, Right } from 'native-base';
+import { Card, CardItem, Body, Container, Content, Icon, Right } from 'native-base';
 
 // components
 import Header from '../components/Header';
@@ -20,55 +20,171 @@ class ListView extends Component {
     this.state = {
       categories: [],
       ready: false,
+      toggle: true,
     }
+  }
+
+  componentWillUnmount(){
+    
   }
 
   componentDidMount() {
     this.getInfo()
   }
 
-  getInfo = () => {
-    const {navigation} = this.props;
-    this.focusListener = navigation.addListener("didFocus", () => {
-      this.setState({
-        ready: false,
-      })
-    });
-    const newItems = []
-    database.collection(fire.auth().currentUser.email).get().then((querySnapshot) => {
-      querySnapshot.forEach(function(documents) {
-        //console.log(documents);
-        var id = documents.id;
-        var data = documents.data()
-        newItems.push({id, data})
-      });
-    }).then(() => {
-      this.setState({
-        categories: newItems,
-        ready: true
-      })
-    }).catch((error) => {
-      console.error(error);
-    })
-    
-  }
+  getInfo = async () => {
+    const categories = await database.collection(fire.auth().currentUser.email).get()
 
+    var classesByName = []
+    categories.forEach(function(category) {
+      if (category.id != "---"){
+        classesByName.push(category.id)
+      }
+    });
+
+    var tempArray = [];
+    var tempObject;
+    var i;
+    for (i = 0; i < classesByName.length; i++){
+      tempObject = {}
+      const classBoi = await database.collection(fire.auth().currentUser.email).doc(classesByName[i]).get()
+      tempObject["name"] = classBoi.id;
+      tempObject["color"] = classBoi.data().color
+      tempObject["description"] = classBoi.data().description
+      var nestedArray = [];
+      var nestedObject;
+
+      var assignments = await database.collection(fire.auth().currentUser.email).doc(classesByName[i]).collection("assignments").get()
+      assignments.forEach(doc => {
+        if (doc.id == "---"){
+
+        }
+        else{
+          nestedObject = {};
+          nestedObject["name"] = doc.id;
+          nestedObject["dueDate"] = doc.data()["dueDate"];
+          nestedObject["dueTime"] = doc.data()["dueTime"];
+          nestedObject["description"] = doc.data()["description"];
+          nestedArray.push(nestedObject)
+        }
+        
+      });
+      tempObject["assignments"] = nestedArray;
+
+      tempArray.push(tempObject)
+    }
+    //console.log(tempArray)
+    this.setState({
+      categories: tempArray,
+      ready: true,
+    })
+
+  }
 
   renderItem = ({ item }) => (
     <ListItem item={item} />
   );
 
+  deleteAssignment = async (className, assignmentName) => {
+
+    const rest = await database.collection(fire.auth().currentUser.email).doc(className).collection("assignments").doc(assignmentName).delete()
+  }
+
+  // deleteClass = async (className) => {
+  //   const classBoi = await database.collection(fire.auth().currentUser.email).doc(className).get()
+    
+  //   var assignments = await database.collection(fire.auth().currentUser.email).doc(className).collection("assignments").get()
+  //   var assignmentsByName = []
+  //   assignments.forEach((doc) => {
+  //     assignmentsByName.push(doc.id)
+  //     // console.log(doc.data())
+  //     // console.log("penis")
+  //   });
+    
+  //   var i;
+  //   for (i = 0; i < assignmentsByName.length; i++){
+  //     const rest = await database.collection(fire.auth().currentUser.email).doc(className).collection("assignments").doc(assignmentsByName[0]).delete()
+  //   }
+
+  //   var assignments = await database.collection(fire.auth().currentUser.email).get()
+  //   var assignmentsByName = []
+  //   assignments.forEach((doc) => {
+  //     assignmentsByName.push(doc.id)
+  //     // console.log(doc.data())
+  //     // console.log("penis")
+  //   });
   
+  //   var i;
+  //   for (i = 0; i < assignmentsByName.length; i++){
+  //     const rest = await database.collection(fire.auth().currentUser.email).doc(assignmentsByName[0]).delete()
+  //   }
+
+  //   this.setState({
+  //     toggle: !this.state.toggle,
+  //   })
+
+  // }
+
+
+  deleteClass = async (className) => {
+    var batchSize = 5;
+
+    this.deleteSubCollection(database, className, batchSize)
+
+    const res = await database.collection(fire.auth().currentUser.email).doc(className).delete()
+
+    this.setState({
+      toggle: !this.state.toggle,
+    })
+    
+  }
+
+  deleteSubCollection = async (db, className, batchSize) => {
+    const collectionRef = db.collection(fire.auth().currentUser.email).doc(className).collection("assignments");
+    const query = collectionRef.orderBy('__name__').limit(batchSize);
+  
+    return new Promise((resolve, reject) => {
+      this.deleteQueryBatch(db, query, resolve).catch(reject);
+    });
+  }
+  
+  deleteQueryBatch = async (db, query, resolve) => {
+    const snapshot = await query.get();
+  
+    const batchSize = snapshot.size;
+    if (batchSize === 0) {
+      // When there are no documents left, we are done
+      resolve();
+      return;
+    }
+  
+    // Delete documents in a batch
+    const batch = db.batch();
+    snapshot.docs.forEach((doc) => {
+      batch.delete(doc.ref);
+    });
+    await batch.commit();
+  
+    // Recurse on the next process tick, to avoid
+    // exploding the stack.
+    this.deleteQueryBatch(db, query, resolve);
+    
+  }
+
 
   render() {
     const { navigation } = this.props;
     if (!this.state.ready) return null;
-    else{
-      //console.log(this.state.categories)
-      return (
-        <View style={{ backgroundColor: 'purple', height: '100%' }}>
-          <Header title = "Classes" navigation = {this.props} addbutton = {true} isListView = {true}/>
-
+    var empty = false;
+    console.log(this.state.categories.length)
+    if (this.state.categories.length == 0)
+      empty = true;
+      
+    return (
+      
+      <Container style={{ height: '100%' }}>
+        <Header title = "Classes" navigation = {this.props} addbutton = {true} isListView = {true}/>
+        <Content>
           <TouchableOpacity
           style = {styles.submitButton}
           onPress = {
@@ -93,27 +209,116 @@ class ListView extends Component {
               <Text style = {styles.submitButtonText}> Calendar Year View </Text>
           </TouchableOpacity>
 
+          {empty && 
+            <CardItem header bordered style = {styles.carditem}>
+                <Text>
+                    Click the "Add" button to add classes!
+                </Text>
+            </CardItem>
+          }
           
           
-          {this.state.categories.map((info, index) =>{
-            
+          {this.state.categories.map((tempClass, index) =>{
 
             return(
-              <Card key = {index}>
-                <CardItem button onPress={()=>navigation.navigate('ObjectView', {
-                  category: info.id,
-                })}>
+              <Card key = {index} style = {styles.card}>
+                <CardItem header bordered style = {styles.carditem}>
                     <Text>
-                        {info.id}
+                        {tempClass.name}
                     </Text>
+
+                    <TouchableOpacity style = {styles.editButton} onPress = { () => this.deleteClass(tempClass.name) }>
+                        <Text style = {styles.submitButtonText}> Delete Class </Text>
+                    </TouchableOpacity>
+
                 </CardItem>
+
+                <CardItem bordered style = {styles.carditem}>
+                  <Body>
+                    <Text>
+                      Color: {tempClass["color"]}
+                    </Text>
+                  </Body>
+                </CardItem>
+
+                <CardItem bordered style = {styles.carditem}>
+                  <Body>
+                    <Text>
+                      Description: {tempClass["description"]}
+                    </Text>
+                  </Body>
+                </CardItem>
+
+                <CardItem bordered style = {styles.carditem}>
+                  <Body >
+                    <Text>
+                      Assignments:
+                    </Text>
+                    
+
+
+                    {tempClass["assignments"].map((Objects, index1) =>{
+                      return(
+                        <CardItem bordered style = {styles.carditem}>
+                          <Body>
+                            
+                            <Text>
+                              Assignment name: {Objects["name"]}
+                            </Text>
+                            <Text>
+                              Description: {Objects["description"]}
+                            </Text>
+                            <Text>
+                              Due Date: {Objects["dueDate"]}
+                            </Text>
+                            <Text>
+                              Due Time: {Objects["dueTime"]}
+                            </Text>
+                          </Body>
+                          <TouchableOpacity style = {styles.deleteButton} onPress = { () => this.deleteAssignment(tempClass.name, Objects["name"]) }>
+                            <Text style = {styles.submitButtonText}> Delete Assignment </Text>
+                          </TouchableOpacity>
+                        </CardItem>
+                      )
+                    })}
+
+                    
+                  </Body>
+                </CardItem>
+
+                <TouchableOpacity
+                  style = {styles.editButton}
+                  onPress = {
+                      () => navigation.navigate('AddObject', {category: tempClass.name})
+                  }>
+                      <Text style = {styles.submitButtonText}> Add New Assignment </Text>
+                </TouchableOpacity>
+
+                
+                
               </Card>
             )
+
           })}
-          <Footer navigation = {this.props} signoutbutton = {true} isListView = {true}/>
-        </View>
-      );
-    }
+          <Body>
+            <Text>
+              
+            </Text>
+            <Text>
+              
+            </Text>
+            <Text>
+              
+            </Text>
+            <Text>
+              
+            </Text>
+          </Body>
+        </Content>
+        <Footer navigation = {this.props} signoutbutton = {true} isListView = {true}/>
+      </Container>
+    );
+    
   }
 }
 

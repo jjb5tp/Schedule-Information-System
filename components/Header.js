@@ -61,25 +61,18 @@ const Header = (props) => {
                 <Button title="submitcategorybutton" onPress={() => {{
                     if (fire.auth().currentUser){
                         if (database.collection(fire.auth().currentUser.email) != null){
-                            if (categoryinfo.description){
-                                database.collection(fire.auth().currentUser.email).doc(categoryinfo.title).update({
-                                    description: categoryinfo.description,
-                                })
-                            }
-                            if (categoryinfo.color){
-                                database.collection(fire.auth().currentUser.email).doc(categoryinfo.title).update({
-                                    color: categoryinfo.color,
-                                })
-                            }
+                            database.collection(fire.auth().currentUser.email).doc(categoryinfo.title).set({
+                                description: categoryinfo.description,
+                                color: categoryinfo.color,
+                                assignments: [],
+                            })
+                            database.collection(fire.auth().currentUser.email).doc(categoryinfo.title).collection("assignments").doc("---").set({})
                         }
                         else {
-                            
                         }
                         navigation.goBack()
                     }
-
                 }}}
-
                 style = {styles.submit_button}>
                     <Text> Submit </Text>
                 </Button>)
@@ -91,21 +84,19 @@ const Header = (props) => {
                 <Button title="submitobjectbutton" onPress={() => {{
                     if (fire.auth().currentUser){
                         if (database.collection(fire.auth().currentUser.email) != null){
-
-                            var myObject = {}
-                            myObject[objectinfo.name] = {
+                            if (objectinfo.name == ""){
+                                alert("Please enter a name")
+                                return
+                            }
+                            console.log(fire.auth().currentUser.email, objectinfo.category, "assignments", objectinfo.name)
+                            database.collection(fire.auth().currentUser.email).doc(objectinfo.category).collection("assignments").doc(objectinfo.name).set({
                                 dueDate: objectinfo.dueDate,
                                 dueTime: objectinfo.dueTime,
-                                recommendation: objectinfo.recommendation,
-                                repeatUntil: objectinfo.repeatUntil,
-                            }
-                            console.log( myObject )
-                            database.collection(fire.auth().currentUser.email).doc(objectinfo.category).set(
-                                myObject
-                            )
+                                description: objectinfo.description,
+                            })
+
                         }
                         else {
-                            
                         }
                         navigation.goBack()
                     }

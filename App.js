@@ -14,7 +14,6 @@ import CalendarScreen from './pages/CalendarScreen';
 import CalendarYearView from './pages/CalendarYearView';
 import AddCategory from './pages/AddCategory';
 import ListView from './pages/ListView';
-import ObjectView from './pages/ObjectView';
 import AddObject from './pages/AddObject';
 
 import {LogBox} from 'react-native';
@@ -45,7 +44,6 @@ export default class App extends React.Component{
           <Stack.Screen name = "AddCategory" component = {AddCategory}/>
           <Stack.Screen name = "AddObject" component = {AddObject}/>
           <Stack.Screen name = "ListView" component = {ListView}/>
-          <Stack.Screen name = "ObjectView" component = {ObjectView}/>
           
         </Stack.Navigator>
       </NavigationContainer>
